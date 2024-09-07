@@ -13,7 +13,7 @@ stage('sonar analysis & generate artifacts')
 { withSonarQubeEnv(credentialsId: 'sonar', installationName: 'sonar') { sh 'mvn package sonar:sonar '}
 }} }
 stage('depploy to tomcat-dev') {steps { sshagent(['tomcatdev'])
-{ sh 'scp -o StrictHostKeyChecking=no **/*.war ec2user@54.254.130.112:/usr/share/tomcat/webapps/'}
+{ sh 'scp -o StrictHostKeyChecking=no **/*.war ec2-user@54.254.130.112:/usr/share/tomcat/webapps/'}
 } }
 
 
