@@ -22,7 +22,12 @@ stage ('docker build and push')
    { sh 'docker build -t 687167992963.dkr.ecr.eu-north-1.amazonaws.com/devopsecr:latest .'
   sh ' docker push 687167992963.dkr.ecr.eu-north-1.amazonaws.com/devopsecr:latest'} 
 } }
-
+stage ('eks deployment')
+ {steps withAWS(credentials: 'AWSSCRT', region: 'eu-north-1')
+   {sh 'aws sts get-caller-identity'
+  sh 'aws eks --region eu-central-1 update-kubeconfig --name k8s-eks'
+  sh 'kubectl apply -f k8s.yaml'}
+} }
 
 
 }
