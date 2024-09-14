@@ -24,8 +24,7 @@ stage ('docker build and push')
 } }
 stage ('eks deployment')
  {steps withAWS(credentials: 'AWSSCRT', region: 'eu-north-1')
-   {sh 'aws sts get-caller-identity'
-  sh 'aws eks --region eu-central-1 update-kubeconfig --name k8s-eks'
+   {sh 'aws eks --region eu-central-1 update-kubeconfig --name k8s-eks'
   sh 'kubectl apply -f k8s.yaml'}
 } }
 
