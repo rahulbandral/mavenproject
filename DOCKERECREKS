@@ -1,0 +1,28 @@
+pipeline
+{
+agent any
+stages 
+
+{stage ('scm_checkout')
+  {steps { git branch: 'master', url: 'https://github.com/prakashk0301/maven-project.git' } }
+
+  stage ('execute unit test')
+  {steps { withMaven(globalMavenSettingsConfig: '15a8520f-ebc1-4c5f-95a7-1c052ffb1c6c', jdk: 'LocalJDK', maven: 'LocalMVN', mavenSettingsConfig: '7c4be8a0-0f31-4062-8458-e3dac7ad9341', traceability: true) 
+    {sh 'mvn test' } 
+ }}
+
+stage ('build the code')
+ {steps {withMaven(globalMavenSettingsConfig: '15a8520f-ebc1-4c5f-95a7-1c052ffb1c6c', jdk: 'LocalJDK', maven: 'LocalMVN', mavenSettingsConfig: '7c4be8a0-0f31-4062-8458-e3dac7ad9341', traceability: true) 
+ {sh 'mvn package'} 
+} } 
+
+stage ('docker build and push')
+  {steps {withDockerRegistry(credentialsId: 'ecr:eu-north-1:AWSSCRT', url: '687167992963.dkr.ecr.eu-north-1.amazonaws.com/devopsecr:latest') 
+   { sh 'docker build -t 687167992963.dkr.ecr.eu-north-1.amazonaws.com/devopsecr:latest .'
+  sh ' docker push 687167992963.dkr.ecr.eu-north-1.amazonaws.com/devopsecr:latest'} 
+} }
+
+
+
+}
+}
