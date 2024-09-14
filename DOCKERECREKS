@@ -18,7 +18,7 @@ stages
 
 
 stage ('docker build and push')
-  {steps {withDockerRegistry(credentialsId: 'ecr:eu-north-1:AWSSCRT', url: '687167992963.dkr.ecr.eu-north-1.amazonaws.com/devopsecr:latest') 
+  {steps {withDockerRegistry(credentialsId: 'ecr:eu-north-1:AWSSCRT', url: 'Https://687167992963.dkr.ecr.eu-north-1.amazonaws.com/devopsecr:latest') 
    { sh 'docker build -t 687167992963.dkr.ecr.eu-north-1.amazonaws.com/devopsecr:latest .'
   sh ' docker push 687167992963.dkr.ecr.eu-north-1.amazonaws.com/devopsecr:latest'} 
 } }
