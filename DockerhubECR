@@ -22,3 +22,5 @@ stage ('docker build and push')
    { sh 'docker build -t 687167992963.dkr.ecr.ap-southeast-1.amazonaws.com/rahulecr:latest .'
   sh ' docker push 687167992963.dkr.ecr.ap-southeast-1.amazonaws.com/rahulecr:latest'} 
 } }
+}
+}
