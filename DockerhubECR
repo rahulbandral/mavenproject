@@ -1,0 +1,24 @@
+pipeline
+{
+agent any
+stages
+{
+ stage('scm checkout')
+ {steps { git branch: 'master', url: 'https://github.com/rahulbandral/mavenproject' }} 
+
+
+ stage('execute unit test framework')
+ {steps {  withMaven(globalMavenSettingsConfig: '', jdk: 'JAVA', maven: 'MAVEN_HOME', mavenSettingsConfig: '', traceability: true) { sh 'mvn test'
+} }}
+
+ stage('build and generate artifact')
+ {steps {  withMaven(globalMavenSettingsConfig: '', jdk: 'JAVA', maven: 'MAVEN_HOME', mavenSettingsConfig: '', traceability: true) {
+    sh 'mvn package'
+} }}
+
+
+stage ('docker build and push')
+  {steps {withDockerRegistry(credentialsId: 'ecr:ap-southeast-1:AWSID', url: 'https://687167992963.dkr.ecr.ap-southeast-1.amazonaws.com/rahulecr:latest') 
+   { sh 'docker build -t 687167992963.dkr.ecr.ap-southeast-1.amazonaws.com/rahulecr:latest .'
+  sh ' docker push 687167992963.dkr.ecr.ap-southeast-1.amazonaws.com/rahulecr:latest'} 
+} }
