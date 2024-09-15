@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: 687167992963.dkr.ecr.eu-north-1.amazonaws.com/devopsecr:latest
+        image: 687167992963.dkr.ecr.ap-southeast-1.amazonaws.com/rahulecr:latest
         ports:
         - containerPort: 8080
 ---
@@ -33,4 +33,4 @@ spec:
   - name: name-of-service-port
     protocol: TCP
     port: 8080
-    targetPort: LoadBalancer
+  targetPort: LoadBalancer
